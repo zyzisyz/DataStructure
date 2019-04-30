@@ -8,9 +8,9 @@ template <typename T>
 struct ListNode
 {   //列表节点模板类（以双向链表形式实现）
     // 成员
-    T data;
-    ListNodePosi(T) pred;
-    ListNodePosi(T) succ; //数值、前驱、后继
+    T data;               // 数值
+    ListNodePosi(T) pred; // 前驱节点
+    ListNodePosi(T) succ; //后继节点
                           // 构造函数
     ListNode() {}         //针对header和trailer的构造
     ListNode(T e, ListNodePosi(T) p = NULL, ListNodePosi(T) s = NULL)
@@ -44,7 +44,6 @@ public:
     List(List<T> const &L);                //整体复制列表L
     List(List<T> const &L, Rank r, int n); //复制列表L中自第r项起的n项
     List(ListNodePosi(T) p, int n);        //复制列表中自位置p起的n项
-
     ~List(); ///析构函数
              ///释放（包含头、尾哨兵在内的）所有节点
              // 只读访问接口
@@ -52,8 +51,10 @@ public:
     Rank size() const { return _size; }                    //规模
     bool empty() const { return _size <= 0; }              //判空
     T &operator[](Rank r) const;                           //重载，支持循秩访问（效率低）
+
     ListNodePosi(T) first() const { return header->succ; } //首节点位置
     ListNodePosi(T) last() const { return trailer->pred; } //末节点位置
+
     bool valid(ListNodePosi(T) p)                          //判断位置p是否对外合法
     {
         return p && (trailer != p) && (header != p);
@@ -70,6 +71,7 @@ public:
         return search(e, _size, trailer);
     }
     ListNodePosi(T) search(T const &e, int n, ListNodePosi(T) p) const;     //有序区间查找
+
     ListNodePosi(T) selectMax(ListNodePosi(T) p, int n);                    //在p及其n-1个后继中选出最大者
     ListNodePosi(T) selectMax() { return selectMax(header->succ, _size); }  //整体最大者
                                                                             // 可写访问接口
@@ -77,10 +79,13 @@ public:
     ListNodePosi(T) insertAsLast(T const &e);                               //将e当作末节点插入
     ListNodePosi(T) insertA(ListNodePosi(T) p, T const &e);                 //将e当作p的后继插入
     ListNodePosi(T) insertB(ListNodePosi(T) p, T const &e);                 //将e当作p的前驱插入
+    
     T remove(ListNodePosi(T) p);                                            //删除合法位置p处的节点,返回被删除节点
+
     void merge(List<T> &L) { merge(first(), size, L, L.first(), L._size); } //全列表归并
     void sort(ListNodePosi(T) p, int n);                                    //列表区间排序
     void sort() { sort(first(), _size); }                                   //列表整体排序
+    
     int deduplicate();                                                      //无序去重
     int uniquify();                                                         //有序去重
     void reverse();                                                         //前后倒置（习题）
