@@ -31,7 +31,7 @@ int match(char* P, char* T){
 }
 
 int main(void){
-	char* T = "abdef";
+	char* T = "abaaaaaaaaaaaaaaaaaaaaaaaaaaadef";
 	char* P = "def";
 
 	//cout<<T<<endl;

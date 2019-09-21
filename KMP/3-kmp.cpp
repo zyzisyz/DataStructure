@@ -11,17 +11,37 @@
 
 using namespace std;
 
+int* build_next(char* P){
+	size_t m = strlen(P), j = 0;
+	int* next = new int[m];
+	int t = next[0] = -1;
+	while(j < m-1)
+		if( 0 > t || P[j] == P[t]){
+			j++;t++;
+			next[j] = t;
+		}else
+			t = next[t];
+
+	for(int l=0; l<m; l++){
+		cout<<next[l]<<" ";
+	}
+	cout<<endl;
+
+	return next;
+}
+
+
 int match(char* P, char* T){
-	size_t n = strlen(T); i = 0;
+	size_t n = strlen(T), i = 0;
 	cout<<"Text length is "<<n<<endl;
 
 	size_t m = strlen(P), j = 0;
 	cout<<"Partten length is "<<m<<endl;
-	
+
 	int* next = build_next(P);
 
 	while(i < n && j < m){
-		if(P[j] == T[i]){
+		if( 0>j || T[i] == P[j]){ //0>j是哨兵
 			i++;j++;
 		}
 		else
@@ -29,23 +49,14 @@ int match(char* P, char* T){
 	}
 
 	delete next;
+
+	return i-j;
 }
 
-int* build_next(char* P){
-	size_t m = strlen(P);
-	int* next = new int[m];
-	int t = next[0] = -1;
-
-	while(j < m-1 )
-		if()
-
-
-	return next;
-}
 
 int main(void){
-	char* T = "abdef";
-	char* P = "def";
+	char* T = "aaaaaeeaeeaaaeeaaeeeeeeeaaaaaaaaaaaaaaabdef";
+	char* P = "eeeee";
 
 	//cout<<T<<endl;
 	int index = match(P, T);
