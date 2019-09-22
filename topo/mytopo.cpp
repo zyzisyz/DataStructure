@@ -33,11 +33,10 @@ void init_grap(){
 		Adj[v1].push_back(v2);
 		inDegree[v2]+=1;
 	}
-	/*
+	cout<<"indegree check: ";
 	for(auto item: inDegree)
 		cout<<item<<" ";
 	cout<<endl;
-	*/
 }
 
 void topo_sort(){
@@ -46,20 +45,20 @@ void topo_sort(){
 			s.push(i);
 	}
 
-	int top;
-	if(!s.empty()){
-		top = s.top();
+	int temp;
+	while(!s.empty()){
+		temp = s.top();
 		s.pop();
-		for(auto it = Adj[top].begin(); it!=Adj[top].end(); it++){
-			inDegree[*it]--;
-			if(inDegree[*it]==0)
-				s.push(*it);
+		for(auto it=Adj[temp].begin();it!=Adj[temp].end();it++){
+			inDegree[*it]-=1;
+			if(inDegree[*it]==0) s.push(*it);
 		}
-		path.push_back(top);
+		path.push_back(temp);
 	}
+	
+	//cout<<"size of path: "<<path.size()<<endl;
+	//cout<<"capacity of path: "<<path.capacity()<<endl;
 
-	cout<<"size of path: "<<path.size()<<endl;
-	cout<<"capacity of path: "<<path.capacity()<<endl;
 	for(auto item: path){
 		cout<<item<<" ";
 	}
