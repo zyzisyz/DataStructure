@@ -4,14 +4,7 @@ DataStructure Practice
 
 数据结构练习
 
-## List
-
-THU-CPP-datastructure
-
-|chapter|note|time|
-|:-:|:-:|:-:|
-|[chapter1]()|||
-|[chapter2]()|||
+备份一下备考数据结构写的代码~
 
 ## Reference
 
