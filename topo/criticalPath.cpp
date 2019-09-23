@@ -5,92 +5,76 @@
 	> Created Time: Sun Sep 22 19:16:32 2019
  ************************************************************************/
 
-#include<iostream>
-#include<stack>
-#include<list>
-#include<vector>
+#include <iostream>
+#include <stack>
+#include <list>
+#include <vector>
 
 using namespace std;
 
-
-int num_nodes, num_edge;
-
-vector<int> f; //ealiest
-vector<int> g; //latest
-
-vector<list<int>> Adj; //graph adj
-
-vector<int> weight; //time
+vector<list<int>> Adj; //adj
+int n, e;
 
 vector<int> inDegree;
+vector<int> f, g;
+vector<int> path;
 
 stack<int> s;
 
-vector<int> path;
+int init_graph()
+{
+	cout << "input something\n";
+	cin >> n >> e;
 
-void init_grap(void){
-	cout<<"input"<<endl;
-	//input
-	cin>>num_nodes>>num_edge;
+	Adj.assign(n, list<int>());
+	f.reserve(n);
+	g.reserve(n);
+	path.reserve(n);
+	inDegree.assign(n, 0);
 
-	f.resize(num_nodes);
-	g.resize(num_nodes);
-
-	weight.resize(num_nodes);
-	inDegree.resize(num_nodes);
-
-	Adj.assign(num_nodes, list<int>());
-
-	int temp;
-	for(int i=0; i<num_nodes; i++){
-		cin>>temp;
-		weight[i] = temp;
-	}
-
-	int v1=0;
-	int v2=0;
-	for(int i=0; i<num_edge; i++){	
+	int v1, v2;
+	for (int i = e; i < e; i++)
+	{
 		cin >> v1 >> v2;
 		Adj[v1].push_back(v2);
 		inDegree[v2]++;
 	}
+
+	for (int i = 0; i < n; i++)
+	{
+		if (inDegree[i] == 0)
+		{
+			s.push(i);
+		}
+	}
 }
 
-void topo_sort(){
-	for(int i=0;i<num_nodes;i++){
-		if(inDegree[i]==0)	
-			s.push(i);
-	}
-
+void topo_sort()
+{
 	int top;
 	while (!s.empty())
 	{
 		top = s.top();
 		s.pop();
-
 		for (auto it = Adj[top].begin(); it != Adj[top].end(); it++)
 		{
 			inDegree[*it]--;
-			if (inDegree[*it] == 0) 
+			if (inDegree[*it] == 0)
+			{
 				s.push(*it);
+			}
 		}
 		path.push_back(top);
 	}
-
-	for(auto item: path){
-		cout<<item<<" ";
+	for (auto item : path)
+	{
+		cout << item << " ";
 	}
 	cout<<endl;
-
 }
 
-
-void CriticalPath(void){
-
-}
-
-
-int main(void){
-	init_grap();
+int main(void)
+{
+	init_graph();
 	topo_sort();
 }

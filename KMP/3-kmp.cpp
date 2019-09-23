@@ -19,8 +19,9 @@ int* build_next(char* P){
 		if( 0 > t || P[j] == P[t]){
 			j++;t++;
 			next[j] = t;
-		}else
+		}else{
 			t = next[t];
+		}
 	}
 	for(int l=0; l<m; l++){
 		cout<<next[l]<<" ";
@@ -43,6 +44,7 @@ int main(void){
 	for(int i=0; i<strlen(T); i++)
 		cout<<next[i]<<" ";
 	cout<<endl;
+	delete next;
 
 	//cout<<T<<endl;
 	//int index = match(P, T);
