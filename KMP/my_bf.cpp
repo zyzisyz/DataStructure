@@ -1,8 +1,8 @@
 /*************************************************************************
-	> File Name: bf-1.cpp
+	> File Name: my_bf.cpp
 	> Author: Yang Zhang 
 	> Mail: zyziszy@foxmail.com 
-	> Created Time: Sat Sep 21 14:23:34 2019
+	> Created Time: Mon Sep 23 10:25:15 2019
  ************************************************************************/
 
 #include<iostream>
@@ -11,30 +11,32 @@
 
 using namespace std;
 
+
 int match(char* P, char* T){
 	size_t n = strlen(T), i = 0;
-	cout<<"Text length is "<<n<<endl;
-
 	size_t m = strlen(P), j = 0;
-	cout<<"Partten length is "<<m<<endl;
 
-	while( i < n && j < m ){
-		if(T[i]==P[j]){
+	cout<<"P: "<<P<<endl;
+	cout<<"T: "<<T<<endl;
+
+	while( j<m && i<n ){
+		if( P[j] == T[i]){
 			i++;j++;
-		}
-		else{
+		}else{
+			i += 1-j;
 			j = 0;
-			i += -j+1; //主串复位+1
 		}
 	}
-	return i-j;
+	return i - j;
 }
 
 int main(void){
-	char* T = "adfadfadeddededededeffffff";
-	char* P = "def";
+	char* P = "aaa";
+	char* T = "eeeeeeeaaabbaaeeee";
 
-	//cout<<T<<endl;
-	int index = match(P, T);
-	cout<<"index is "<<index<<endl;
+	cout<<"T: "<<T<<endl;
+	cout<<"P: "<<P<<endl;
+
+	cout<<match(P, T)<<endl;
+
 }
